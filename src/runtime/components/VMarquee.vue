@@ -99,13 +99,12 @@ const isValidTimingFunction = (timingFunction: unknown): timingFunction is TTimi
 <style scoped>
 /* Styling for the container holding the marquee */
 .marquee-container {
-  @apply overflow-hidden whitespace-nowrap box-border border w-full;
+  @apply overflow-hidden whitespace-nowrap box-border w-full;
   /* Styling for size and overflow */
 }
 
 /* Base styling for the animated content */
 .marquee-content {
-  @apply border-2;
   display: inline-block; /* Ensure content is treated as inline for animation */
   animation: marqueeAnimation; /* Apply marquee animation */
   white-space: nowrap; /* Prevent content from wrapping */
