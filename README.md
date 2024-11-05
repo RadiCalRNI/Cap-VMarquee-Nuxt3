@@ -35,7 +35,7 @@ It is developed using `Nuxt 3` framework and `tailwindcss`.
 
 ## Showcase
 
-<p align="center"><img src="./assets/gif/marquee.gif" /></p>
+<p align="center"><img src="./src/runtime/assets/gif/marquee.gif" /></p>
 
 ## Quick Setup
 
