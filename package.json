@@ -1,14 +1,17 @@
 {
   "name": "cap-vmarquee-nuxt3",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "شبیه ساز Marquee در HTML در Nuxt3",
   "author": "Mohammad Rouhani",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RadiCalRNI/Marquee-Nuxt3.git"
+    "url": "https://github.com/RadiCalRNI/Marquee-Nuxt3.git"
   },
-  "homepage": "https://github.com/RadiCalRNI/Cap-VMarquee-Nuxt3#readme",
+  "homepage": "https://github.com/RadiCalRNI/Cap-VMarquee-Nuxt3",
   "bugs": "https://github.com/RadiCalRNI/Cap-VMarquee-Nuxt3/issues",
+  "github": {
+    "repo": "RadiCalRNI/Cap-VMarquee-Nuxt3"
+  },
   "changelog": {
     "repo": {
       "provider": "github"
