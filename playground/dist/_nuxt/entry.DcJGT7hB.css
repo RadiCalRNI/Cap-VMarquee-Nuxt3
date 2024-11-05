@@ -1,0 +1,1 @@
+.marquee-container[data-v-f29cb092]{box-sizing:border-box;overflow:hidden;padding:.125rem;white-space:nowrap}.marquee-content[data-v-f29cb092]{animation:marqueeAnimation-f29cb092 linear infinite;display:inline-block;white-space:nowrap}@keyframes marqueeAnimation-f29cb092{0%{transform:translate(200%)}50%{transform:translate(0)}to{transform:translate(-200%)}}
