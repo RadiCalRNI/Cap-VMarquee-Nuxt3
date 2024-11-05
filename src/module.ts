@@ -6,14 +6,14 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule',
+    name: 'cap-vmarquee-nuxt3',
+    configKey: 'cap-vmarquee-nuxt3',
   },
   // Default configuration options of the Nuxt module
   defaults: {},
   async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url)
-    nuxt.options.modules.push('@nuxtjs/tailwindcss', '@nuxt/icon')
+    nuxt.options.modules.push('@nuxtjs/tailwindcss')
 
     nuxt.hook('nitro:config', async (nitroConfig) => {
       // if not already available, intialize as empty array
@@ -27,8 +27,6 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule('@nuxtjs/tailwindcss', {
       configPath: resolver.resolve('./runtime/tailwind.config.js'),
     })
-    await installModule('@nuxt/icon')
-
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugin'))
