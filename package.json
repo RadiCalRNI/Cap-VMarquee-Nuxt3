@@ -1,10 +1,38 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "cap-vmarquee-nuxt3",
+  "version": "0.0.1",
+  "description": "شبیه ساز Marquee در HTML در Nuxt3",
+  "author": "Mohammad Rouhani",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RadiCalRNI/Marquee-Nuxt3.git"
+  },
+  "homepage": "https://github.com/RadiCalRNI/Cap-VMarquee-Nuxt3#readme",
+  "bugs": "https://github.com/RadiCalRNI/Cap-VMarquee-Nuxt3/issues",
+  "changelog": {
+    "repo": {
+      "provider": "github"
+    }
+  },
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "cap",
+    "iran",
+    "rouhani",
+    "etezadi",
+    "isfahan",
+    "nuxt",
+    "nuxt-module",
+    "capVMarqueeNuxt3",
+    "cap_vmarquee_nuxt3",
+    "cap-vmarquee-nuxt3",
+    "components",
+    "component library",
+    "nuxt library",
+    "nuxt module",
+    "nuxt3"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
@@ -22,7 +50,10 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "releaseWithoutLintAndWithoutTest": "npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "releaseWithoutLint": "npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run lint  && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "buildCss": "tailwindcss -i src/runtime/assets/css/style.css -o ./src/output.css --minify",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
@@ -34,7 +65,6 @@
   "devDependencies": {
     "@nuxt/devtools": "^1.6.0",
     "@nuxt/eslint-config": "^0.6.1",
-    "@nuxt/icon": "^1.6.1",
     "@nuxt/module-builder": "^0.8.4",
     "@nuxt/schema": "^3.13.2",
     "@nuxt/test-utils": "^3.14.4",
