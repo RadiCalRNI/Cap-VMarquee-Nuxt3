@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TDirection } from "~/src/runtime/types/direction.type"; // Type for animation direction
-import type { TTimingFunction } from "~/src/runtime/types/timingFunction"; // Type for timing function
+import type {TDirection} from "~/src/runtime/types/direction.type"; // Type for animation direction
+import type {TTimingFunction} from "~/src/runtime/types/timingFunction"; // Type for timing function
 
 //#region PROPS
 // Define props with default values for duration, delay, direction, and timing function
@@ -22,29 +22,49 @@ const props = withDefaults(
 
 //#region VARIABLES
 // Reference to the marquee content div element for applying styles directly
+const marqueeContainer = ref<HTMLDivElement | null>(null);
 const marqueeContent = ref<HTMLDivElement | null>(null);
 //#endregion
 
 //#region HOOKS
 // onMounted hook to apply animation styles after component is mounted
 onMounted(() => {
-  // Validate and apply duration and delay values
-  const duration = validateDurationAndDelay(props.duration, 3);
-  const delay = validateDurationAndDelay(props.delay, 0);
+  if (marqueeContent.value && marqueeContainer.value) {
+    // گرفتن عرض container و content
+    const containerWidth = marqueeContainer.value.offsetWidth;
+    const contentWidth = marqueeContent.value.offsetWidth;
 
-  // Validate and apply direction and timing function values
-  const direction = isValidDirection(props.direction) ? props.direction : 'normal';
-  const timingFunction = isValidSpeed(props.timingFunction) ? props.timingFunction : 'linear';
+    // تنظیمات انیمیشن
+    const duration = validateDurationAndDelay(props.duration, 3); // مدت زمان بر اساس props.duration
+    const delay = validateDurationAndDelay(props.delay, 0);
+    const direction = isValidDirection(props.direction) ? props.direction : 'normal';
+    const timingFunction = isValidTimingFunction(props.timingFunction) ? props.timingFunction : 'linear';
 
-  // Apply animation styles to marqueeContent element
-  if (marqueeContent.value) {
+    // اعمال تنظیمات انیمیشن
     marqueeContent.value.style.animationDuration = `${duration}s`;
-    marqueeContent.value.style.animationDelay = `${delay}s`;
-    marqueeContent.value.style.animationIterationCount = 'infinite'; // Infinite iteration for marquee effect
-    marqueeContent.value.style.animationDirection = direction;
     marqueeContent.value.style.animationTimingFunction = timingFunction;
+    marqueeContent.value.style.animationName = 'marqueeAnimation';
+    marqueeContent.value.style.animationIterationCount = 'infinite';
+    marqueeContent.value.style.animationDirection = direction;
+    marqueeContent.value.style.animationDelay = `${delay}s`;
+
+    // ایجاد تگ <style> برای keyframes
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = `
+      @keyframes marqueeAnimation {
+        0% {
+          transform: translateX(${containerWidth + 15}px); /* شروع از خارج container */
+        }
+        100% {
+          transform: translateX(-${contentWidth + 15}px); /* پایان خارج از container */
+        }
+      }
+    `;
+    document.head.appendChild(style); // افزودن تگ <style> به <head>
   }
 });
+
 //#endregion
 
 //#region FUNCTIONS
@@ -60,7 +80,7 @@ const isValidDirection = (direction: unknown): direction is TDirection => {
 };
 
 // Type guard for timing function validation (allowing specific CSS timing functions)
-const isValidSpeed = (timingFunction: unknown): timingFunction is TTimingFunction => {
+const isValidTimingFunction = (timingFunction: unknown): timingFunction is TTimingFunction => {
   return ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'].includes(timingFunction as string);
 };
 //#endregion
@@ -79,27 +99,16 @@ const isValidSpeed = (timingFunction: unknown): timingFunction is TTimingFunctio
 <style scoped>
 /* Styling for the container holding the marquee */
 .marquee-container {
-  @apply p-0.5 overflow-hidden whitespace-nowrap box-border;
+  @apply overflow-hidden whitespace-nowrap box-border border w-full;
   /* Styling for size and overflow */
 }
 
 /* Base styling for the animated content */
 .marquee-content {
+  @apply border-2;
   display: inline-block; /* Ensure content is treated as inline for animation */
-  animation: marqueeAnimation linear infinite; /* Apply marquee animation */
+  animation: marqueeAnimation; /* Apply marquee animation */
   white-space: nowrap; /* Prevent content from wrapping */
 }
 
-/* Keyframes for the marquee animation (moving from right to left) */
-@keyframes marqueeAnimation {
-  0% {
-    transform: translateX(200%); /* Start from the right side (off-screen) */
-  }
-  50% {
-    transform: translateX(0); /* Center position (fully visible) */
-  }
-  100% {
-    transform: translateX(-200%); /* End at the left side (off-screen) */
-  }
-}
 </style>
